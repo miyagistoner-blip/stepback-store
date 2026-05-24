@@ -1,28 +1,29 @@
-import ProductCard from "../components/ProductCard";
+import ProductCard 
+from "../components/ProductCard";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
   const products = [
-{
-  title: "Darkflash DS900M",
-  price: "$55.000",
-  image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1200&auto=format&fit=crop",
-},
   {
-  title: "Darkflash C275P",
-  price: "$40.000",
-  image: "https://www.darkflash.com/upload/product/20241011/1728635315.png",
-},
+    title: "Darkflash DS900M",
+    price: "$55.000",
+    image: "/products/ds900m.png",
+    slug: "ds900m",
+  },
+
   {
-  title: "Fuente 650W 80 Plus Bronze",
-  price: "$45.000",
-  image: "https://www.darkflash.com/upload/product/20230809/1691562984.png",
-},
+    title: "Darkflash C275P",
+    price: "$40.000",
+    image: "/products/c275p.png",
+    slug: "c275p",
+  },
+
   {
-  title: "Teclado Z68 DarkFlash",
-  price: "$48.000",
-  image: "https://www.darkflash.com/upload/product/20231129/1701243273.png",
-},
+    title: "Fuente 650W 80 Plus Bronze",
+    price: "$45.000",
+    image: "/products/psu650.png",
+    slug: "psu650",
+  },
 ];
 
   return (
@@ -52,9 +53,7 @@ export default function Home() {
             Ver productos
           </button>
 
-          <button className="border border-white/10 hover:border-white/20 transition px-8 py-4 rounded-2xl font-semibold">
-            Instagram
-          </button>
+        
 
         </div>
 
@@ -73,6 +72,7 @@ export default function Home() {
     title={product.title}
     price={product.price}
     image={product.image}
+    slug={product.slug}
   />
 ))}
 

@@ -1,17 +1,24 @@
 import Image from "next/image";
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 type ProductCardProps = {
   title: string;
   price: string;
   image: string;
+  slug: string;
 };
 
 export default function ProductCard({
   title,
   price,
   image,
+  slug,
 }: ProductCardProps) {
   return (
-    <div className="group bg-zinc-950 border border-white/10 rounded-3xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/40 hover:shadow-[0_0_40px_rgba(249,115,22,0.15)]">
+    <Link
+  href={`/products/${slug}`}
+  className="group bg-zinc-950 border border-white/10 rounded-3xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/40 hover:shadow-[0_0_40px_rgba(249,115,22,0.15)] block"
+>
       
       <div className="relative bg-zinc-900 rounded-2xl h-56 mb-5 flex items-center justify-center overflow-hidden">
         
@@ -45,13 +52,12 @@ export default function ProductCard({
         </p>
       </div>
 
-      <a
-  href="https://wa.me/56936455845"
-  target="_blank"
-  className="mt-6 block w-full bg-orange-500 hover:bg-orange-600 transition-all duration-300 py-3 rounded-2xl font-semibold text-center"
+      <button
+  className="mt-6 flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 transition-all duration-300 py-3 rounded-2xl font-semibold"
 >
+  <FaWhatsapp className="text-xl" />
   Hablar por WhatsApp
-</a>
-    </div>
+</button>
+    </Link>
   );
 }
