@@ -15,7 +15,7 @@ const products = {
 
   psu650: {
     name: "Fuente 650W 80 Plus Bronze",
-    image: "/products/psu650.png",
+    image: "/products/psu650w.png",
     price: "$45.000",
   },
 };

@@ -19,11 +19,11 @@ export default function Home() {
   },
 
   {
-    title: "Fuente 650W 80 Plus Bronze",
-    price: "$45.000",
-    image: "/products/psu650w.png",
-    slug: "psu650w",
-  },
+  title: "Fuente 650W 80 Plus Bronze",
+  price: "$45.000",
+  image: "/products/psu650w.png",
+  slug: "psu650",
+},
 ];
 
   return (
