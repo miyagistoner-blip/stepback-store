@@ -1,0 +1,113 @@
+export const products = [
+  {
+    title: "Darkflash DS900M",
+    name: "Darkflash DS900M",
+    price: "$55.000",
+    image: "/products/ds900m.png",
+    slug: "ds900m",
+    brand: "Darkflash",
+    category: "Gabinete",
+    stock: "Disponible",
+    colors: ["Negro", "Blanco"],
+    shortDescription:
+      "Gabinete panorámico compacto con 6 ventiladores L17 ARGB incluidos, pensado para setups limpios, modernos y con presencia visual.",
+    description:
+      "El Darkflash DS900M combina diseño panorámico, vidrio templado y 6 ventiladores Darkflash L17 ARGB incluidos en un formato compacto. Es una base ideal para armar un setup elegante, ordenado y con una estética premium, mostrando el hardware sin saturar el espacio visual.",
+    specs: [
+      "Formato M-ATX / ITX",
+      "Dimensiones: 434 × 218 × 414 mm",
+      "Material: SPCC 0.5 mm",
+      "Panel lateral de vidrio templado",
+      "Diseño panorámico con vista amplia del interior",
+      "Incluye 6 ventiladores Darkflash L17 ARGB",
+      "Soporte GPU: hasta 425 mm",
+      "Altura máxima cooler CPU: 170 mm",
+      "Bahías SSD / HDD: 1 / 2",
+      "Soporte radiador superior: 240 / 360 mm",
+      "Soporte radiador lateral: 240 mm",
+      "I/O frontal: Power, Reset, HD Audio, USB 3.0 ×1, USB 2.0 ×2",
+    ],
+    shipping: [
+      "Envíos a todo Chile",
+      "Retiro disponible en Santiago previa coordinación",
+      "Despacho coordinado directamente por WhatsApp",
+      "Venta al detalle y al mayor",
+    ],
+  },
+  {
+    title: "Darkflash C275P",
+    name: "Darkflash C275P",
+    price: "$40.000",
+    image: "/products/c275p.png",
+    slug: "c275p",
+    brand: "Darkflash",
+    category: "Gabinete",
+    stock: "Disponible",
+    colors: ["Negro", "Blanco"],
+    shortDescription:
+      "Gabinete compacto con 3 ventiladores L17 ARGB incluidos, estética limpia y diseño pensado para setups modernos.",
+    description:
+      "El Darkflash C275P está pensado para quienes buscan una base compacta, limpia y funcional para su setup. Incluye 3 ventiladores Darkflash L17 ARGB, manteniendo una estética sobria con buena presencia visual para montar un equipo gamer ordenado sin perder el estilo.",
+    specs: [
+      "Formato M-ATX / ITX",
+      "Dimensiones: 330 × 275 × 305 mm",
+      "Material: SPCC 0.5 mm",
+      "Panel lateral de vidrio templado",
+      "Diseño compacto con estética limpia",
+      "Incluye 3 ventiladores Darkflash L17 ARGB",
+      "Soporte GPU: hasta 325 mm",
+      "Altura máxima cooler CPU: 155 mm",
+      "Bahías SSD / HDD: 2 / 1",
+      "Soporte ventiladores superiores: 120 mm ×2",
+      "Soporte ventiladores laterales: 120 mm ×2",
+      "Soporte ventilador trasero: 120 mm ×1",
+      "Soporte ventiladores inferiores: 120 mm ×2",
+      "Soporte radiador lateral: 240 mm",
+      "Soporte radiador inferior: 240 mm",
+      "I/O frontal: Power, Reset, HD Audio, USB 3.0 ×1, USB 2.0 ×2",
+    ],
+    shipping: [
+      "Envíos a todo Chile",
+      "Retiro disponible en Santiago previa coordinación",
+      "Despacho coordinado directamente por WhatsApp",
+      "Venta al detalle y al mayor",
+    ],
+  },
+  {
+    title: "Darkflash EMT 650W Bronze",
+    name: "Darkflash EMT 650W 80 Plus Bronze",
+    price: "$45.000",
+    image: "/products/psu650w.png",
+    slug: "psu650",
+    brand: "Darkflash",
+    category: "Fuente de poder",
+    stock: "Disponible",
+    colors: ["Negro"],
+    shortDescription:
+      "Fuente 650W 80 Plus Bronze pensada para setups gamer equilibrados, con diseño sobrio y eficiencia confiable.",
+    description:
+      "La Darkflash EMT 650W entrega una base estable para equipos gamer de entrada y gama media. Su certificación 80 Plus Bronze, diseño sobrio y formato ATX la convierten en una opción sólida para armar o actualizar un PC con buena eficiencia y protección eléctrica.",
+    specs: [
+      "Potencia: 650W",
+      "Certificación: 80 Plus Bronze",
+      "Formato: ATX",
+      "Diseño: no modular",
+      "Dimensiones: 140 × 150 × 86 mm",
+      "Entrada: 100–240V / 50–60Hz",
+      "Ideal para PCs gamer de entrada y gama media",
+      "Buena opción para armado o actualización de equipo",
+      "Color: negro",
+      "Producto nuevo",
+    ],
+    shipping: [
+      "Envíos a todo Chile",
+      "Retiro disponible en Santiago previa coordinación",
+      "Despacho coordinado directamente por WhatsApp",
+      "Venta al detalle y al mayor",
+    ],
+  },
+];
+
+export function getProductBySlug(slug: string) {
+  return products.find((product) => product.slug === slug);
+}

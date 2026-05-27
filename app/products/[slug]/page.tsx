@@ -1,24 +1,6 @@
 import Image from "next/image";
-
-const products = {
-  ds900m: {
-    name: "Darkflash DS900M",
-    image: "/products/ds900m.png",
-    price: "$55.000",
-  },
-
-  c275p: {
-    name: "Darkflash C275P",
-    image: "/products/c275p.png",
-    price: "$40.000",
-  },
-
-  psu650: {
-    name: "Fuente 650W 80 Plus Bronze",
-    image: "/products/psu650w.png",
-    price: "$45.000",
-  },
-};
+import Link from "next/link";
+import { getProductBySlug } from "@/data/products";
 
 type ProductPageProps = {
   params: Promise<{
@@ -26,71 +8,177 @@ type ProductPageProps = {
   }>;
 };
 
-export default async function ProductPage({
-  params,
-}: ProductPageProps) {
-
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
 
-  const product =
-    products[slug as keyof typeof products];
+  const product = getProductBySlug(slug);
 
   if (!product) {
     return (
-      <main className="min-h-screen bg-black text-white flex items-center justify-center">
-        Producto no encontrado
+      <main className="min-h-screen bg-[#f4f1ea] text-black dark:bg-black dark:text-white flex items-center justify-center px-6">
+        <div className="text-center">
+          <p className="text-orange-500 dark:text-orange-400 uppercase tracking-[0.3em] text-sm mb-4">
+            STEPBACK STORE
+          </p>
+
+          <h1 className="text-4xl font-semibold mb-4">
+            Producto no encontrado
+          </h1>
+
+          <Link
+            href="/"
+            className="text-[#6f6a61] dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition"
+          >
+            Volver al inicio
+          </Link>
+        </div>
       </main>
     );
   }
 
+  const whatsappMessage = `Hola, estoy interesado en el ${product.name}`;
+  const whatsappUrl = `https://wa.me/56936455845?text=${encodeURIComponent(
+    whatsappMessage
+  )}`;
+
   return (
-    <main className="min-h-screen bg-black text-white px-8 py-20">
+    <main className="min-h-screen bg-[#f4f1ea] text-black dark:bg-black dark:text-white relative overflow-hidden px-6 py-28">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#fbfaf6_0%,#f4f1ea_45%,#e9e4da_100%)] dark:bg-[radial-gradient(circle_at_top,#18181b_0%,#050505_45%,#000000_100%)]" />
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+      <div className="hidden dark:block absolute top-[-220px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-orange-500/20 blur-[120px] rounded-full" />
 
-        <div className="relative bg-zinc-900 rounded-3xl h-[500px] overflow-hidden">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-contain p-10"
-          />
-        </div>
+      <div className="max-w-6xl mx-auto relative z-10">
+        <Link
+          href="/#productos"
+          className="inline-block text-[#6f6a61] dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition mb-10"
+        >
+          ← Volver a la colección
+        </Link>
 
-        <div>
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="relative bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] h-[520px] overflow-hidden">
+            <div className="absolute top-5 left-5 z-10">
+              <span className="rounded-full border border-black/10 dark:border-white/10 bg-[#f4f1ea]/80 dark:bg-black/40 px-4 py-2 text-xs text-[#6f6a61] dark:text-zinc-300 backdrop-blur">
+                {product.stock}
+              </span>
+            </div>
 
-          <p className="text-orange-400 uppercase tracking-[0.3em] text-sm mb-4">
-            STEPBACK STORE
-          </p>
-
-          <h1 className="text-5xl font-black mb-6">
-            {product.name}
-          </h1>
-
-          <p className="text-3xl font-bold text-orange-400 mb-8">
-            {product.price}
-          </p>
-
-          <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-            Producto premium disponible en STEPBACK STORE.
-            Stock limitado y disponibilidad mayorista.
-          </p>
-
-          <div className="space-y-4 text-zinc-300 mb-10">
-            <p>• Producto nuevo</p>
-            <p>• Garantía de funcionamiento</p>
-            <p>• Disponible en Chile 🇨🇱</p>
-            <p>• Atención directa por WhatsApp</p>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain p-10"
+            />
           </div>
 
-          <button className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 transition px-8 py-4 rounded-2xl font-semibold">
-            Hablar por WhatsApp
-          </button>
+          <div className="pt-2">
+            <p className="text-orange-500 dark:text-orange-400 uppercase tracking-[0.3em] text-sm mb-5">
+              STEPBACK SELECTED
+            </p>
 
+            <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-none mb-6">
+              {product.name}
+            </h1>
+
+            <p className="text-[#6f6a61] dark:text-zinc-400 text-lg leading-relaxed mb-8 max-w-xl">
+              {product.shortDescription}
+            </p>
+<div className="mb-8 rounded-[1.5rem] border border-black/10 dark:border-white/10 bg-[#fbfaf6]/60 dark:bg-zinc-950/60 p-6">
+  <p className="text-sm uppercase tracking-[0.25em] text-[#8a8377] dark:text-zinc-500 mb-3">
+    Concepto
+  </p>
+
+  <p className="text-[#6f6a61] dark:text-zinc-400 leading-relaxed">
+    {product.description}
+  </p>
+</div>
+            <div className="flex flex-wrap gap-3 mb-8">
+              <span className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 text-[#6f6a61] dark:text-zinc-300 px-4 py-2 rounded-full text-sm">
+                {product.brand}
+              </span>
+
+              <span className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 text-[#6f6a61] dark:text-zinc-300 px-4 py-2 rounded-full text-sm">
+                {product.category}
+              </span>
+            </div>
+
+            <div className="mb-8">
+              <p className="text-sm text-[#6f6a61] dark:text-zinc-500 mb-1">
+                Precio
+              </p>
+
+              <p className="text-4xl font-semibold tracking-tight">
+                {product.price}
+              </p>
+            </div>
+
+            <div className="mb-10">
+              <h2 className="text-sm uppercase tracking-[0.25em] text-[#8a8377] dark:text-zinc-500 mb-4">
+                Colores disponibles
+              </h2>
+
+              <div className="flex flex-wrap gap-3">
+                {product.colors.map((color) => (
+                  <span
+                    key={color}
+                    className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 px-5 py-3 rounded-2xl text-black dark:text-white"
+                  >
+                    {color}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition px-8 py-4 rounded-2xl font-semibold"
+            >
+              Consultar disponibilidad
+            </a>
+
+            <p className="text-sm text-[#6f6a61] dark:text-zinc-500 mt-4">
+              Atención directa por WhatsApp.
+            </p>
+          </div>
         </div>
 
-      </div>
+        <div className="grid md:grid-cols-2 gap-6 mt-16">
+          <section className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-10">
+            <p className="uppercase tracking-[0.25em] text-orange-500 dark:text-orange-400 text-sm mb-4">
+              Detalles
+            </p>
 
+            <h2 className="text-3xl font-semibold tracking-tight mb-8">
+              Especificaciones
+            </h2>
+
+            <div className="space-y-4 text-[#6f6a61] dark:text-zinc-400">
+              {product.specs.map((spec) => (
+                <p key={spec}>• {spec}</p>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-10">
+            <p className="uppercase tracking-[0.25em] text-orange-500 dark:text-orange-400 text-sm mb-4">
+              Compra
+            </p>
+
+            <h2 className="text-3xl font-semibold tracking-tight mb-8">
+              Envíos y compras
+            </h2>
+
+            <div className="space-y-4 text-[#6f6a61] dark:text-zinc-400">
+              {product.shipping.map((item) => (
+                <p key={item}>• {item}</p>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
   );
 }
