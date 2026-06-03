@@ -1,232 +1,334 @@
-import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import { getProductBySlug } from "@/data/products";
+import { notFound } from "next/navigation";
 
-type ProductPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+const whatsappNumber = "56936455845";
+
+const products = {
+  ds900m: {
+    name: "Darkflash DS900M",
+    price: "$55.000",
+    image: "/products/ds900m.png",
+    category: "Case Micro-ATX",
+    description:
+      "Gabinete panorámico compacto de Darkflash, ideal para setups modernos con estética premium. Incluye 6 ventiladores L17 ARGB.",
+    specs: [
+      "Formato M-ATX / ITX",
+      "Incluye 6 ventiladores L17 ARGB",
+      "Diseño panorámico",
+      "Panel lateral de vidrio templado",
+      "Ideal para setups gamer compactos",
+    ],
+    keySpecs: [
+      ["Formato", "M-ATX / ITX"],
+      ["Medidas", "434 × 218 × 414 mm"],
+      ["GPU máxima", "Hasta 425 mm"],
+      ["Cooler CPU", "Hasta 170 mm"],
+      ["Ventiladores", "6× L17 ARGB incluidos"],
+      ["Radiador", "Hasta 360 mm superior"],
+      ["Material", "0.5 mm SPCC + vidrio templado"],
+      ["Bahías", "1 SSD / 2 HDD"],
+    ],
+    fullSpecs: [
+      ["Formato", "M-ATX / ITX"],
+      ["Medidas del case", "434 × 218 × 414 mm"],
+      ["Medidas de caja", "455 × 280 × 515 mm"],
+      ["Material", "0.5 mm SPCC + vidrio templado"],
+      ["GPU máxima", "Hasta 425 mm"],
+      ["Cooler CPU máximo", "Hasta 170 mm"],
+      ["Slots PCIe", "5"],
+      ["Bahías SSD / HDD", "1 / 2"],
+      ["Ventiladores superiores", "3×120 mm / 2×140 mm"],
+      ["Ventiladores laterales", "2×120 mm"],
+      ["Ventilador trasero", "1×120 mm"],
+      ["Ventiladores inferiores", "3×120 mm"],
+      ["Radiador superior", "240 / 360 mm"],
+      ["Radiador lateral", "240 mm"],
+    ],
+  },
+
+  c275p: {
+    name: "Darkflash C275P",
+    price: "$40.000",
+    image: "/products/c275p.png",
+    category: "Case M-ATX",
+    description:
+      "Gabinete compacto de doble cámara, elegante y limpio, pensado para setups modernos. Incluye 3 ventiladores L17 y ofrece una excelente presencia visual.",
+    specs: [
+      "Formato M-ATX / ITX",
+      "Incluye 3 ventiladores L17",
+      "Diseño compacto de doble cámara",
+      "Panel de vidrio templado",
+      "Buen flujo de aire",
+    ],
+    keySpecs: [
+      ["Formato", "M-ATX / ITX"],
+      ["Medidas", "333 × 275 × 323 mm"],
+      ["GPU máxima", "Hasta 325 mm"],
+      ["Cooler CPU", "Hasta 155 mm"],
+      ["Ventiladores", "3× L17 incluidos"],
+      ["Radiador", "Hasta 240 mm"],
+      ["Material", "0.5 mm SPCC + vidrio templado"],
+      ["Bahías", "2 SSD / 1 HDD"],
+    ],
+    fullSpecs: [
+      ["Formato", "M-ATX / ITX"],
+      ["Medidas del chasis", "330 × 275 × 305 mm"],
+      ["Medidas totales", "333 × 275 × 323 mm"],
+      ["Medidas de caja", "367 × 337 × 410 mm"],
+      ["Material", "0.5 mm SPCC + vidrio templado"],
+      ["GPU máxima", "Hasta 325 mm"],
+      ["Cooler CPU máximo", "Hasta 155 mm"],
+      ["Slots PCIe", "5"],
+      ["Bahías SSD / HDD", "2 / 1"],
+      ["Ventiladores superiores", "2×120 mm"],
+      ["Ventiladores laterales", "2×120 mm"],
+      ["Ventilador trasero", "1×120 mm"],
+      ["Ventiladores inferiores", "2×120 mm"],
+      ["Radiador lateral", "240 mm"],
+      ["Radiador inferior", "240 mm"],
+    ],
+  },
+
+  psu650w: {
+    name: "Darkflash EMT 650W Bronze",
+    price: "$45.000",
+    image: "/products/psu650w.png",
+    category: "Fuente de poder",
+    description:
+      "Fuente de poder Darkflash EMT 650W Bronze, recomendada para PCs gamer de entrada y gama media. Buena opción para equipos equilibrados con consumo moderado.",
+    specs: [
+      "650W",
+      "Certificación 80 Plus Bronze",
+      "No modular",
+      "Ventilador FDB",
+      "Condensadores japoneses 105°C",
+    ],
+    keySpecs: [
+      ["Potencia", "650W"],
+      ["Certificación", "80 Plus Bronze"],
+      ["Formato", "ATX / no modular"],
+      ["Ventilador", "FDB"],
+      ["Protecciones", "OVP / OCP / OPP / SCP / OTP / UVP"],
+      ["Medidas", "140 × 150 × 86 mm"],
+    ],
+    fullSpecs: [
+      ["Potencia", "650W"],
+      ["Certificación", "80 Plus Bronze"],
+      ["Formato", "ATX / no modular"],
+      ["Medidas", "140 × 150 × 86 mm"],
+      ["Ventilador", "FDB"],
+      ["Voltaje de entrada", "100–240V"],
+      ["Frecuencia", "50–60Hz"],
+      ["Condensadores", "Japoneses 105°C"],
+      ["PFC", "Activo 98%"],
+      ["Peso", "≈1.86 kg"],
+      ["Protecciones", "OVP / OCP / OPP / SCP / OTP / UVP"],
+    ],
+  },
 };
 
-export default async function ProductPage({ params }: ProductPageProps) {
+type ProductSlug = keyof typeof products;
+
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
-  const product = getProductBySlug(slug);
+  const product = products[slug as ProductSlug];
 
   if (!product) {
-    return (
-      <main className="min-h-screen bg-[#f4f1ea] text-black dark:bg-black dark:text-white flex items-center justify-center px-6">
-        <Navbar />
-
-        <div className="text-center">
-          <p className="text-orange-500 dark:text-orange-400 uppercase tracking-[0.3em] text-sm mb-4">
-            STEPBACK STORE
-          </p>
-
-          <h1 className="text-4xl font-semibold mb-4">
-            Producto no encontrado
-          </h1>
-
-          <Link
-            href="/#productos"
-            className="text-[#6f6a61] dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition"
-          >
-            Volver a la colección
-          </Link>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
-  const whatsappMessage = `Hola, estoy interesado en el ${product.name}`;
-  const whatsappUrl = `https://wa.me/56936455845?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
-
-  const highlight =
-    product.slug === "ds900m"
-      ? "6x L17 ARGB"
-      : product.slug === "c275p"
-      ? "3x L17 ARGB"
-      : "650W Bronze";
+  const whatsappMessage = `Hola STEPBACK, quiero consultar por el ${product.name}`;
 
   return (
-    <main className="min-h-screen bg-[#f4f1ea] text-black dark:bg-black dark:text-white relative overflow-hidden px-6 pt-28 pb-28">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#fbfaf6_0%,#f4f1ea_45%,#e9e4da_100%)] dark:bg-[radial-gradient(circle_at_top,#18181b_0%,#050505_45%,#000000_100%)]" />
+    <main className="min-h-screen bg-black text-white">
+      <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-black/75 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5">
+          <Link href="/" className="text-2xl font-black tracking-[0.18em]">
+            STEPBACK
+          </Link>
 
-      <div className="hidden dark:block absolute top-[-220px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-orange-500/20 blur-[120px] rounded-full" />
+          <Link
+            href="/"
+            className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white"
+          >
+            Volver a colección
+          </Link>
+        </div>
+      </nav>
 
-      <Navbar />
+      <section className="relative mx-auto grid max-w-7xl gap-12 px-6 pt-32 pb-14 lg:grid-cols-2 lg:items-start">
+        <div className="absolute left-1/2 top-16 h-[360px] w-[640px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-[140px]" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <Link
-          href="/#productos"
-          className="inline-block text-[#6f6a61] dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition mb-10"
-        >
-          ← Volver a la colección
-        </Link>
+        <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] md:p-8">
+          <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/70 px-4 py-2 text-xs font-semibold text-white/70">
+            Disponible
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="space-y-5">
-            <div className="relative bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] h-[520px] overflow-hidden">
-              <div className="absolute top-5 left-5 z-10">
-                <span className="rounded-full border border-black/10 dark:border-white/10 bg-[#f4f1ea]/80 dark:bg-black/40 px-4 py-2 text-xs text-[#6f6a61] dark:text-zinc-300 backdrop-blur">
-                  {product.stock}
-                </span>
-              </div>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-[420px] w-full object-contain md:h-[520px]"
+          />
+        </div>
 
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain p-10"
-              />
-            </div>
+        <div className="relative">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.45em] text-orange-500">
+            {product.category}
+          </p>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="rounded-3xl border border-black/10 dark:border-white/10 bg-[#fbfaf6]/60 dark:bg-zinc-950/60 p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8a8377] dark:text-zinc-500 mb-3">
-                  Incluye
-                </p>
+          <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.05em] md:text-7xl">
+            {product.name}
+          </h1>
 
-                <p className="text-sm font-semibold text-black dark:text-white leading-snug">
-                  {highlight}
-                </p>
-              </div>
+          <p className="mt-7 text-4xl font-black">{product.price}</p>
 
-              <div className="rounded-3xl border border-black/10 dark:border-white/10 bg-[#fbfaf6]/60 dark:bg-zinc-950/60 p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8a8377] dark:text-zinc-500 mb-3">
-                  Despacho
-                </p>
+          <p className="mt-8 max-w-2xl text-base leading-8 text-white/55">
+            {product.description}
+          </p>
 
-                <p className="text-sm font-semibold text-black dark:text-white leading-snug">
-                  Todo Chile
-                </p>
-              </div>
+          <div className="mt-10">
+            <h2 className="mb-5 text-xl font-black">Características</h2>
 
-              <div className="rounded-3xl border border-black/10 dark:border-white/10 bg-[#fbfaf6]/60 dark:bg-zinc-950/60 p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8a8377] dark:text-zinc-500 mb-3">
-                  Compra
-                </p>
-
-                <p className="text-sm font-semibold text-black dark:text-white leading-snug">
-                  WhatsApp
-                </p>
-              </div>
+            <div className="grid gap-3">
+              {product.specs.map((spec) => (
+                <div
+                  key={spec}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-white/70 transition hover:border-orange-500/30 hover:bg-white/[0.05]"
+                >
+                  {spec}
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="pt-2">
-            <p className="text-orange-500 dark:text-orange-400 uppercase tracking-[0.3em] text-sm mb-5">
-              STEPBACK SELECTED
-            </p>
-
-            <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-none mb-6">
-              {product.name}
-            </h1>
-
-            <p className="text-[#6f6a61] dark:text-zinc-400 text-lg leading-relaxed mb-8 max-w-xl">
-              {product.shortDescription}
-            </p>
-
-            <div className="mb-8 rounded-[1.5rem] border border-black/10 dark:border-white/10 bg-[#fbfaf6]/60 dark:bg-zinc-950/60 p-6">
-              <p className="text-sm uppercase tracking-[0.25em] text-[#8a8377] dark:text-zinc-500 mb-3">
-                Concepto
-              </p>
-
-              <p className="text-[#6f6a61] dark:text-zinc-400 leading-relaxed">
-                {product.description}
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3 mb-8">
-              <span className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 text-[#6f6a61] dark:text-zinc-300 px-4 py-2 rounded-full text-sm">
-                {product.brand}
-              </span>
-
-              <span className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 text-[#6f6a61] dark:text-zinc-300 px-4 py-2 rounded-full text-sm">
-                {product.category}
-              </span>
-            </div>
-
-            <div className="mb-8">
-              <p className="text-sm text-[#6f6a61] dark:text-zinc-500 mb-1">
-                Precio
-              </p>
-
-              <p className="text-4xl font-semibold tracking-tight">
-                {product.price}
-              </p>
-            </div>
-
-            <div className="mb-10">
-              <h2 className="text-sm uppercase tracking-[0.25em] text-[#8a8377] dark:text-zinc-500 mb-4">
-                Colores disponibles
-              </h2>
-
-              <div className="flex flex-wrap gap-3">
-                {product.colors.map((color) => (
-                  <span
-                    key={color}
-                    className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 px-5 py-3 rounded-2xl text-black dark:text-white"
-                  >
-                    {color}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
             <a
-              href={whatsappUrl}
+              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                whatsappMessage
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition px-8 py-4 rounded-2xl font-semibold"
+              className="rounded-2xl bg-green-500 px-8 py-4 text-center text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-green-400"
             >
-              Consultar disponibilidad
+              Consultar por WhatsApp
             </a>
 
-            <p className="text-sm text-[#6f6a61] dark:text-zinc-500 mt-4">
-              Atención directa por WhatsApp.
+            <a
+              href="https://www.facebook.com/marketplace/profile/100095529813059/?ref=permalink&mibextid=6ojiHh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl bg-orange-500 px-8 py-4 text-center text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-orange-400"
+            >
+              Ver en Marketplace
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-12">
+        <div className="mb-8">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-orange-500">
+            Lo importante
+          </p>
+
+          <h2 className="text-4xl font-black tracking-[-0.04em]">
+            Specs clave
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {product.keySpecs.map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
+                {label}
+              </p>
+              <p className="mt-4 text-lg font-black leading-snug text-white">
+                {value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-20">
+        <details className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+            <div>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.45em] text-orange-500">
+                Información avanzada
+              </p>
+              <h2 className="text-2xl font-black tracking-[-0.03em]">
+                Ver ficha técnica completa
+              </h2>
+            </div>
+
+            <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-white/60 transition group-open:rotate-45 group-open:text-white">
+              +
+            </span>
+          </summary>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {product.fullSpecs.map(([label, value]) => (
+              <div
+                key={label}
+                className="rounded-3xl border border-white/10 bg-black/30 p-5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
+                  {label}
+                </p>
+                <p className="mt-4 text-base font-bold leading-snug text-white/85">
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </details>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
+              STEPBACK
+            </p>
+            <h3 className="mt-4 text-xl font-black">Producto seleccionado</h3>
+            <p className="mt-3 text-sm leading-6 text-white/45">
+              Hardware elegido para setups modernos, limpios y con buena
+              presencia visual.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
+              Compra
+            </p>
+            <h3 className="mt-4 text-xl font-black">Atención directa</h3>
+            <p className="mt-3 text-sm leading-6 text-white/45">
+              Consulta disponibilidad y coordina tu compra directamente por
+              WhatsApp.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
+              Envíos
+            </p>
+            <h3 className="mt-4 text-xl font-black">A todo Chile</h3>
+            <p className="mt-3 text-sm leading-6 text-white/45">
+              Despachos coordinados según ciudad, comuna y producto
+              seleccionado.
             </p>
           </div>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-6 mt-16">
-          <section className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-10">
-            <p className="uppercase tracking-[0.25em] text-orange-500 dark:text-orange-400 text-sm mb-4">
-              Detalles
-            </p>
-
-            <h2 className="text-3xl font-semibold tracking-tight mb-8">
-              Especificaciones
-            </h2>
-
-            <div className="space-y-4 text-[#6f6a61] dark:text-zinc-400">
-              {product.specs.map((spec) => (
-                <p key={spec}>• {spec}</p>
-              ))}
-            </div>
-          </section>
-
-          <section className="bg-[#fbfaf6]/70 dark:bg-zinc-950/80 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-10">
-            <p className="uppercase tracking-[0.25em] text-orange-500 dark:text-orange-400 text-sm mb-4">
-              Compra
-            </p>
-
-            <h2 className="text-3xl font-semibold tracking-tight mb-8">
-              Envíos y compras
-            </h2>
-
-            <div className="space-y-4 text-[#6f6a61] dark:text-zinc-400">
-              {product.shipping.map((item) => (
-                <p key={item}>• {item}</p>
-              ))}
-            </div>
-          </section>
-        </div>
-      </div>
+      </section>
     </main>
   );
 }
