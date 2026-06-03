@@ -254,7 +254,7 @@ export default function Home() {
         <h3 className="text-lg font-black">Retiros al mayor</h3>
 
         <p className="mt-3 text-sm leading-6 text-white/45">
-          Tarapacá 1140, Santiago Centro. Disponible para compras mayoristas y
+          Tarapacá 1028, Santiago Centro. Disponible para compras mayoristas y
           retiros coordinados.
         </p>
 
@@ -416,7 +416,7 @@ export default function Home() {
               <p>
                 Retiros al mayor:
                 <br />
-                Tarapacá 1140, Santiago Centro.
+                Tarapacá 1028, Santiago Centro.
               </p>
             </div>
           </div>
