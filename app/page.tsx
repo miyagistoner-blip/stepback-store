@@ -439,6 +439,17 @@ export default function Home() {
           <p>Hardware gamer · Santiago Centro, Chile</p>
         </div>
       </footer>
+            <a
+        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+          whatsappMessage
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-green-500 px-5 py-4 text-sm font-black text-white shadow-[0_20px_60px_rgba(34,197,94,0.35)] transition hover:-translate-y-0.5 hover:bg-green-400 md:hidden"
+      >
+        <WhatsAppIcon />
+        WhatsApp
+      </a>
     </main>
   );
 }
