@@ -200,8 +200,8 @@ export default function Home() {
                 <div className="mt-7 flex items-end justify-between gap-4">
                   <div>
                     <p className="text-sm text-black/50 dark:text-white/45">
-                      Desde
-                    </p>
+  Precio
+</p>
                     <p className="mt-1 text-2xl font-black">{product.price}</p>
                   </div>
 

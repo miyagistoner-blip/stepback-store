@@ -131,7 +131,7 @@ const products = {
     image: "/products/g271qg.png",
     category: "Monitor gamer 27”",
     description:
-      "Monitor gamer Darkflash G271QG de 27 pulgadas, resolución 2K QHD y tasa de refresco de 180Hz. Ideal para setups gamer modernos, juegos competitivos y uso diario con excelente nitidez.",
+  "Monitor gamer Darkflash G271QG de 27 pulgadas con resolución 2K QHD, panel IPS y 180Hz. Una opción potente para setups modernos, juegos competitivos y uso diario con imagen nítida y fluida.",
     specs: [
       "27 pulgadas",
       "Resolución 2K QHD 2560×1440",
@@ -369,6 +369,16 @@ export default async function ProductPage({
           </div>
         </div>
       </section>
+            <a
+        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+          whatsappMessage
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-green-500 px-5 py-4 text-sm font-black text-white shadow-[0_20px_60px_rgba(34,197,94,0.35)] transition hover:-translate-y-0.5 hover:bg-green-400 md:hidden"
+      >
+        WhatsApp
+      </a>
     </main>
   );
 }
