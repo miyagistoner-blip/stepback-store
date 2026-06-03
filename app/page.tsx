@@ -40,6 +40,13 @@ const products = [
     href: "/products/psu650w",
     tag: "80 Plus Bronze",
   },
+    {
+    name: "Darkflash G271QG",
+    price: "$120.000",
+    image: "/products/g271qg.png",
+    href: "/products/g271qg",
+    tag: "27” · 2K · 180Hz",
+  },
 ];
 
 export default function Home() {
@@ -162,7 +169,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid gap-7 lg:grid-cols-3">
+        <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-4">
           {products.map((product) => (
             <a
               key={product.name}

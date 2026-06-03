@@ -125,6 +125,46 @@ const products = {
       ["Protecciones", "OVP / OCP / OPP / SCP / OTP / UVP"],
     ],
   },
+    g271qg: {
+    name: "Darkflash G271QG",
+    price: "$120.000",
+    image: "/products/g271qg.png",
+    category: "Monitor gamer 27”",
+    description:
+      "Monitor gamer Darkflash G271QG de 27 pulgadas, resolución 2K QHD y tasa de refresco de 180Hz. Ideal para setups gamer modernos, juegos competitivos y uso diario con excelente nitidez.",
+    specs: [
+      "27 pulgadas",
+      "Resolución 2K QHD 2560×1440",
+      "Panel IPS",
+      "180Hz de refresco",
+      "Compatible con montaje VESA 75×75 mm",
+    ],
+    keySpecs: [
+      ["Tamaño", "27 pulgadas"],
+      ["Resolución", "2560 × 1440 QHD"],
+      ["Panel", "IPS"],
+      ["Frecuencia", "180Hz"],
+      ["Color", "99% sRGB / 75% NTSC"],
+      ["Ángulo de visión", "178° / 178°"],
+      ["Montaje", "VESA 75×75 mm"],
+      ["Puertos", "2× DisplayPort / 2× HDMI"],
+    ],
+    fullSpecs: [
+      ["Tamaño de panel", "27 pulgadas"],
+      ["Tipo de panel", "IPS"],
+      ["Resolución", "2560 × 1440"],
+      ["Tasa de refresco", "180Hz"],
+      ["Relación de aspecto", "16:9"],
+      ["Brillo", "250 nits"],
+      ["Contraste dinámico", "100000000:1"],
+      ["Ángulo de visión", "178° horizontal / 178° vertical"],
+      ["Gama de color", "99% sRGB / 75% NTSC"],
+      ["Colores", "16.7 millones"],
+      ["Cuidado visual", "Low Blue Light"],
+      ["Montaje VESA", "75 × 75 mm"],
+      ["Puertos de video", "2× DisplayPort / 2× HDMI"],
+    ],
+  },
 };
 
 type ProductSlug = keyof typeof products;
