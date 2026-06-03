@@ -145,8 +145,8 @@ export default async function ProductPage({
   const whatsappMessage = `Hola STEPBACK, quiero consultar por el ${product.name}`;
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-black/75 backdrop-blur-xl">
+    <main className="min-h-screen bg-[#f5f2ea] text-black dark:bg-black dark:text-white">
+      <nav className="fixed left-0 top-0 z-50 w-full border-b border-black/10 bg-[#f5f2ea]/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/75">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5">
           <Link href="/" className="text-2xl font-black tracking-[0.18em]">
             STEPBACK
@@ -154,7 +154,7 @@ export default async function ProductPage({
 
           <Link
             href="/"
-            className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white"
+            className="rounded-full border border-black/10 bg-black/5 px-5 py-2 text-sm font-bold text-black/70 transition hover:bg-black/10 hover:text-black dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
           >
             Volver a colección
           </Link>
@@ -162,10 +162,10 @@ export default async function ProductPage({
       </nav>
 
       <section className="relative mx-auto grid max-w-7xl gap-12 px-6 pt-32 pb-14 lg:grid-cols-2 lg:items-start">
-        <div className="absolute left-1/2 top-16 h-[360px] w-[640px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-[140px]" />
+        <div className="absolute left-1/2 top-16 h-[360px] w-[640px] -translate-x-1/2 rounded-full bg-transparent blur-[140px] dark:bg-orange-500/10" />
 
-        <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] md:p-8">
-          <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/70 px-4 py-2 text-xs font-semibold text-white/70">
+        <div className="relative rounded-[2rem] border border-black/10 bg-white/50 p-6 shadow-[0_30px_120px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[0_30px_120px_rgba(0,0,0,0.35)] md:p-8">
+          <div className="absolute left-6 top-6 rounded-full border border-black/10 bg-white/75 px-4 py-2 text-xs font-semibold text-black/65 dark:border-white/10 dark:bg-black/70 dark:text-white/70">
             Disponible
           </div>
 
@@ -187,7 +187,7 @@ export default async function ProductPage({
 
           <p className="mt-7 text-4xl font-black">{product.price}</p>
 
-          <p className="mt-8 max-w-2xl text-base leading-8 text-white/55">
+          <p className="mt-8 max-w-2xl text-base leading-8 text-black/55 dark:text-white/55">
             {product.description}
           </p>
 
@@ -198,7 +198,7 @@ export default async function ProductPage({
               {product.specs.map((spec) => (
                 <div
                   key={spec}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-white/70 transition hover:border-orange-500/30 hover:bg-white/[0.05]"
+                  className="rounded-2xl border border-black/10 bg-white/50 px-5 py-4 text-sm text-black/65 transition hover:border-orange-500/30 hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.03] dark:text-white/70 dark:hover:bg-white/[0.05]"
                 >
                   {spec}
                 </div>
@@ -245,12 +245,12 @@ export default async function ProductPage({
           {product.keySpecs.map(([label, value]) => (
             <div
               key={label}
-              className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]"
+              className="rounded-3xl border border-black/10 bg-white/50 p-5 transition hover:border-orange-500/30 hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-black/40 dark:text-white/35">
                 {label}
               </p>
-              <p className="mt-4 text-lg font-black leading-snug text-white">
+              <p className="mt-4 text-lg font-black leading-snug text-black dark:text-white">
                 {value}
               </p>
             </div>
@@ -259,7 +259,7 @@ export default async function ProductPage({
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-20">
-        <details className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+        <details className="group rounded-[2rem] border border-black/10 bg-white/50 p-6 transition hover:border-orange-500/30 hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
             <div>
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.45em] text-orange-500">
@@ -270,7 +270,7 @@ export default async function ProductPage({
               </h2>
             </div>
 
-            <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-white/60 transition group-open:rotate-45 group-open:text-white">
+            <span className="rounded-full border border-black/10 px-4 py-2 text-sm font-bold text-black/60 transition group-open:rotate-45 group-open:text-black dark:border-white/10 dark:text-white/60 dark:group-open:text-white">
               +
             </span>
           </summary>
@@ -279,12 +279,12 @@ export default async function ProductPage({
             {product.fullSpecs.map(([label, value]) => (
               <div
                 key={label}
-                className="rounded-3xl border border-white/10 bg-black/30 p-5"
+                className="rounded-3xl border border-black/10 bg-white/60 p-5 dark:border-white/10 dark:bg-black/30"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-black/40 dark:text-white/35">
                   {label}
                 </p>
-                <p className="mt-4 text-base font-bold leading-snug text-white/85">
+                <p className="mt-4 text-base font-bold leading-snug text-black/75 dark:text-white/85">
                   {value}
                 </p>
               </div>
@@ -295,34 +295,34 @@ export default async function ProductPage({
 
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-3xl border border-black/10 bg-white/50 p-6 dark:border-white/10 dark:bg-white/[0.03]">
             <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
               STEPBACK
             </p>
             <h3 className="mt-4 text-xl font-black">Producto seleccionado</h3>
-            <p className="mt-3 text-sm leading-6 text-white/45">
+            <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
               Hardware elegido para setups modernos, limpios y con buena
               presencia visual.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-3xl border border-black/10 bg-white/50 p-6 dark:border-white/10 dark:bg-white/[0.03]">
             <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
               Compra
             </p>
             <h3 className="mt-4 text-xl font-black">Atención directa</h3>
-            <p className="mt-3 text-sm leading-6 text-white/45">
+            <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
               Consulta disponibilidad y coordina tu compra directamente por
               WhatsApp.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-3xl border border-black/10 bg-white/50 p-6 dark:border-white/10 dark:bg-white/[0.03]">
             <p className="text-xs uppercase tracking-[0.35em] text-orange-500">
               Envíos
             </p>
             <h3 className="mt-4 text-xl font-black">A todo Chile</h3>
-            <p className="mt-3 text-sm leading-6 text-white/45">
+            <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
               Despachos coordinados según ciudad, comuna y producto
               seleccionado.
             </p>
