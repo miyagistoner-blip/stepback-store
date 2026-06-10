@@ -1,20 +1,15 @@
-const whatsappNumber = "56936455845";
+import Navbar from "@/components/Navbar";
 
+const whatsappNumber = "56936455845";
+const mapLinks = {
+  tienda:
+    "https://www.google.com/maps/search/?api=1&query=Alonso%20de%20Ovalle%201060%20Local%20139%20Santiago%20Centro%20Chile",
+  mayoristas:
+    "https://www.google.com/maps/search/?api=1&query=Tarapac%C3%A1%201028%20Santiago%20Centro%20Chile",
+};
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
     <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.46 0 .1 5.36.1 11.96c0 2.1.55 4.16 1.6 5.98L0 24l6.22-1.63a11.93 11.93 0 0 0 5.84 1.49h.01c6.6 0 11.96-5.36 11.96-11.96 0-3.2-1.25-6.2-3.51-8.42ZM12.07 21.84h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.69.97.98-3.6-.23-.37a9.9 9.9 0 1 1 8.35 4.59Zm5.43-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
-  </svg>
-);
-
-const FacebookIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
-    <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z" />
-  </svg>
-);
-
-const InstagramIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
-    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.8A4.2 4.2 0 1 1 12 16.2 4.2 4.2 0 0 1 12 7.8Zm0 2A2.2 2.2 0 1 0 12 14.2 2.2 2.2 0 0 0 12 9.8ZM17.25 6.4a1.05 1.05 0 1 1-1.05 1.05 1.05 1.05 0 0 1 1.05-1.05Z" />
   </svg>
 );
 
@@ -40,7 +35,7 @@ const products = [
     href: "/products/psu650w",
     tag: "80 Plus Bronze",
   },
-    {
+  {
     name: "Darkflash G271QG",
     price: "$120.000",
     image: "/products/g271qg.png",
@@ -55,63 +50,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#f5f2ea] text-black dark:bg-black dark:text-white">
-      <nav className="fixed left-0 top-0 z-50 w-full border-b border-black/10 bg-[#f5f2ea]/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/75">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5">
-          <a href="/" className="text-2xl font-black tracking-[0.18em]">
-            STEPBACK
-          </a>
+      <Navbar />
 
-          <div className="hidden items-center gap-8 text-sm text-black/60 dark:text-white/75 md:flex">
-            <a
-              href="#productos"
-              className="transition hover:text-black dark:hover:text-white"
-            >
-              Productos
-            </a>
-
-            <a
-              href="#envios"
-              className="transition hover:text-black dark:hover:text-white"
-            >
-              Envíos
-            </a>
-
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                whatsappMessage
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-5 py-2 font-semibold text-black transition hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
-            >
-              <WhatsAppIcon />
-              WhatsApp
-            </a>
-
-            <a
-              href="https://www.facebook.com/marketplace/profile/100095529813059/?ref=permalink&mibextid=6ojiHh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-5 py-2 font-semibold text-black transition hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
-            >
-              <FacebookIcon />
-              Marketplace
-            </a>
-
-            <a
-              href="https://www.instagram.com/stepback6store?utm_source=qr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-5 py-2 font-semibold text-black transition hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
-            >
-              <InstagramIcon />
-              Instagram
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      <section className="relative flex min-h-[82vh] items-center justify-center overflow-hidden px-6 pt-32 pb-20">
+      <section
+        id="inicio"
+        className="relative flex min-h-[82vh] items-center justify-center overflow-hidden px-6 pb-20 pt-32"
+      >
         <div className="absolute left-1/2 top-16 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-transparent blur-[140px] dark:bg-orange-500/20" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06),transparent_38%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06),transparent_38%)]" />
 
@@ -125,8 +69,8 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-black/55 dark:text-white/55 md:text-lg">
-            Cases, periféricos y productos seleccionados para setups modernos,
-            limpios y minimalistas.
+            Cases, fuentes, monitores y periféricos seleccionados para setups
+            modernos, limpios y minimalistas.
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
@@ -147,7 +91,28 @@ export default function Home() {
             >
               Consultar por WhatsApp
             </a>
-          </div>
+                    </div>
+        </div>
+      </section>
+
+            <section className="mx-auto max-w-[1600px] px-6 pb-8">
+        <div className="flex flex-wrap items-center justify-center gap-3 rounded-[2rem] border border-black/10 bg-white/40 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
+          {[
+            "Cases",
+            "Fuentes",
+            "Monitores",
+            "Refrigeración",
+            "Ventiladores",
+            "Periféricos",
+          ].map((category) => (
+            <a
+              key={category}
+              href="#productos"
+              className="rounded-full border border-black/10 bg-white/60 px-5 py-3 text-sm font-bold text-black/55 transition hover:-translate-y-0.5 hover:border-orange-500/40 hover:bg-orange-500 hover:text-white dark:border-white/10 dark:bg-black/40 dark:text-white/60 dark:hover:border-orange-500/40 dark:hover:bg-orange-500 dark:hover:text-white"
+            >
+              {category}
+            </a>
+          ))}
         </div>
       </section>
 
@@ -198,17 +163,17 @@ export default function Home() {
                 </h3>
 
                 <div className="mt-7 flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-sm text-black/50 dark:text-white/45">
-  Precio
-</p>
-                    <p className="mt-1 text-2xl font-black">{product.price}</p>
-                  </div>
+  <div>
+    <p className="text-sm text-black/50 dark:text-white/45">
+      Precio
+    </p>
+    <p className="mt-1 text-2xl font-black">{product.price}</p>
+  </div>
 
-                  <span className="rounded-full border border-black/10 px-5 py-2 text-sm font-bold text-black transition group-hover:border-orange-500/50 group-hover:bg-orange-500 group-hover:text-white dark:border-white/10 dark:text-white">
-                    Ver detalle
-                  </span>
-                </div>
+  <span className="text-sm font-black text-black/40 transition group-hover:translate-x-1 group-hover:text-orange-500 dark:text-white/35 dark:group-hover:text-orange-400">
+    Ver producto →
+  </span>
+</div>
               </div>
             </a>
           ))}
@@ -252,9 +217,14 @@ export default function Home() {
 
               <h3 className="text-lg font-black">Tienda física</h3>
 
-              <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
-                Alonso de Ovalle 1060, Local 139, Santiago Centro.
-              </p>
+              <a
+  href={mapLinks.tienda}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-3 block text-sm leading-6 text-black/50 underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:text-white/45 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+>
+  Alonso de Ovalle 1060, Local 139, Santiago Centro.
+</a>
 
               <p className="mt-3 text-xs leading-5 text-black/40 dark:text-white/35">
                 Local en preparación. La atención presencial se anunciará cuando
@@ -270,9 +240,16 @@ export default function Home() {
               <h3 className="text-lg font-black">Retiros al mayor</h3>
 
               <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
-                Tarapacá 1028, Santiago Centro. Disponible para compras
-                mayoristas y retiros coordinados.
-              </p>
+  <a
+    href={mapLinks.mayoristas}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+  >
+    Tarapacá 1028, Santiago Centro.
+  </a>{" "}
+  Disponible para compras mayoristas y retiros coordinados.
+</p>
 
               <p className="mt-3 text-xs leading-5 text-black/40 dark:text-white/35">
                 Siempre con coordinación previa por WhatsApp.
@@ -424,16 +401,30 @@ export default function Home() {
 
             <div className="flex flex-col gap-3 text-sm leading-6 text-black/50 dark:text-white/45">
               <p>
-                Próximamente tienda física:
-                <br />
-                Alonso de Ovalle 1060, Local 139.
-              </p>
+  Próximamente tienda física:
+  <br />
+  <a
+    href={mapLinks.tienda}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+  >
+    Alonso de Ovalle 1060, Local 139.
+  </a>
+</p>
 
-              <p>
-                Retiros al mayor:
-                <br />
-                Tarapacá 1028, Santiago Centro.
-              </p>
+<p>
+  Retiros al mayor:
+  <br />
+  <a
+    href={mapLinks.mayoristas}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+  >
+    Tarapacá 1028, Santiago Centro.
+  </a>
+</p>
             </div>
           </div>
 
