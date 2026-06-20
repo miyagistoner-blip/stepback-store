@@ -1,52 +1,74 @@
+import { products } from "@/data/products";
 import Navbar from "@/components/Navbar";
 
 const whatsappNumber = "56936455845";
+
 const mapLinks = {
   tienda:
     "https://www.google.com/maps/search/?api=1&query=Alonso%20de%20Ovalle%201060%20Local%20139%20Santiago%20Centro%20Chile",
   mayoristas:
     "https://www.google.com/maps/search/?api=1&query=Tarapac%C3%A1%201028%20Santiago%20Centro%20Chile",
 };
+
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
     <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.46 0 .1 5.36.1 11.96c0 2.1.55 4.16 1.6 5.98L0 24l6.22-1.63a11.93 11.93 0 0 0 5.84 1.49h.01c6.6 0 11.96-5.36 11.96-11.96 0-3.2-1.25-6.2-3.51-8.42ZM12.07 21.84h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.69.97.98-3.6-.23-.37a9.9 9.9 0 1 1 8.35 4.59Zm5.43-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
   </svg>
 );
 
-const products = [
-  {
-    name: "Darkflash DS900M",
-    price: "$55.000",
-    image: "/products/ds900m.png",
-    href: "/products/ds900m",
-    tag: "6 ventiladores incluidos",
-  },
-  {
-    name: "Darkflash C275P",
-    price: "$40.000",
-    image: "/products/c275p.png",
-    href: "/products/c275p",
-    tag: "Compacto y elegante",
-  },
-  {
-    name: "Darkflash EMT 650W Bronze",
-    price: "$45.000",
-    image: "/products/psu650w.png",
-    href: "/products/psu650w",
-    tag: "80 Plus Bronze",
-  },
-  {
-    name: "Darkflash G271QG",
-    price: "$120.000",
-    image: "/products/g271qg.png",
-    href: "/products/g271qg",
-    tag: "27” · 2K · 180Hz",
-  },
-];
+type Product = (typeof products)[number];
+
+function ProductCard({ product }: { product: Product }) {
+  return (
+    <a
+      href={`/products/${product.slug}`}
+      className="group block rounded-[2rem] border border-black/10 bg-white/50 p-4 transition duration-300 hover:-translate-y-1 hover:border-orange-500/35 hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]"
+    >
+      <div className="relative flex h-[260px] items-center justify-center overflow-hidden rounded-[1.5rem] bg-black/[0.04] p-8 dark:bg-white/[0.06]">
+        <span className="absolute left-5 top-5 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-black/65 dark:border-white/10 dark:bg-black/60 dark:text-white/75">
+          Disponible
+        </span>
+
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+        />
+      </div>
+
+      <div className="px-1 pb-1 pt-6">
+        <p className="mb-3 text-xs uppercase tracking-[0.4em] text-black/35 dark:text-white/30">
+          {product.category}
+        </p>
+
+        <h3 className="text-xl font-black tracking-[-0.03em]">
+          {product.name}
+        </h3>
+
+        <div className="mt-7 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm text-black/50 dark:text-white/45">Precio</p>
+            <p className="mt-1 text-2xl font-black">{product.price}</p>
+          </div>
+
+          <span className="text-sm font-black text-black/40 transition group-hover:translate-x-1 group-hover:text-orange-500 dark:text-white/35 dark:group-hover:text-orange-400">
+            Ver producto →
+          </span>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 export default function Home() {
   const whatsappMessage =
     "Hola STEPBACK, quiero consultar por productos disponibles";
+
+  const featuredProducts = products.filter((product) =>
+  ["ds900m", "c275p", "psu650", "g271qg"].includes(product.slug)
+);
+
+  
 
   return (
     <main className="min-h-screen bg-[#f5f2ea] text-black dark:bg-black dark:text-white">
@@ -75,10 +97,10 @@ export default function Home() {
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href="#productos"
+              href="/catalog"
               className="rounded-2xl bg-orange-500 px-8 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-orange-400"
             >
-              Ver productos
+              Ver catálogo
             </a>
 
             <a
@@ -91,26 +113,26 @@ export default function Home() {
             >
               Consultar por WhatsApp
             </a>
-                    </div>
+          </div>
         </div>
       </section>
 
-            <section className="mx-auto max-w-[1600px] px-6 pb-8">
+      <section className="mx-auto max-w-[1600px] px-6 pb-8">
         <div className="flex flex-wrap items-center justify-center gap-3 rounded-[2rem] border border-black/10 bg-white/40 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
           {[
-            "Cases",
-            "Fuentes",
-            "Monitores",
-            "Refrigeración",
-            "Ventiladores",
-            "Periféricos",
-          ].map((category) => (
+  { label: "Cases", href: "/catalog/cases" },
+{ label: "Fuentes", href: "/catalog/fuentes" },
+{ label: "Monitores", href: "/catalog/monitores" },
+{ label: "Refrigeración", href: "/catalog/refrigeracion" },
+{ label: "Ventiladores", href: "/catalog/ventiladores" },
+{ label: "Periféricos", href: "/catalog/perifericos" },
+].map((category) => (
             <a
-              key={category}
-              href="#productos"
+              key={category.label}
+              href={category.href}
               className="rounded-full border border-black/10 bg-white/60 px-5 py-3 text-sm font-bold text-black/55 transition hover:-translate-y-0.5 hover:border-orange-500/40 hover:bg-orange-500 hover:text-white dark:border-white/10 dark:bg-black/40 dark:text-white/60 dark:hover:border-orange-500/40 dark:hover:bg-orange-500 dark:hover:text-white"
             >
-              {category}
+              {category.label}
             </a>
           ))}
         </div>
@@ -135,50 +157,13 @@ export default function Home() {
         </div>
 
         <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-4">
-          {products.map((product) => (
-            <a
-              key={product.name}
-              href={product.href}
-              className="group block rounded-[2rem] border border-black/10 bg-white/50 p-4 transition duration-300 hover:-translate-y-1 hover:border-orange-500/35 hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]"
-            >
-              <div className="relative flex h-[260px] items-center justify-center overflow-hidden rounded-[1.5rem] bg-black/[0.04] p-8 dark:bg-white/[0.06]">
-                <span className="absolute left-5 top-5 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-black/65 dark:border-white/10 dark:bg-black/60 dark:text-white/75">
-                  Disponible
-                </span>
-
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-full w-full object-contain transition duration-300 group-hover:scale-105"
-                />
-              </div>
-
-              <div className="px-1 pb-1 pt-6">
-                <p className="mb-3 text-xs uppercase tracking-[0.4em] text-black/35 dark:text-white/30">
-                  {product.tag}
-                </p>
-
-                <h3 className="text-xl font-black tracking-[-0.03em]">
-                  {product.name}
-                </h3>
-
-                <div className="mt-7 flex items-end justify-between gap-4">
-  <div>
-    <p className="text-sm text-black/50 dark:text-white/45">
-      Precio
-    </p>
-    <p className="mt-1 text-2xl font-black">{product.price}</p>
-  </div>
-
-  <span className="text-sm font-black text-black/40 transition group-hover:translate-x-1 group-hover:text-orange-500 dark:text-white/35 dark:group-hover:text-orange-400">
-    Ver producto →
-  </span>
-</div>
-              </div>
-            </a>
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       </section>
+
+    
 
       <section id="envios" className="mx-auto max-w-6xl px-6 py-20">
         <div className="rounded-[2rem] border border-black/10 bg-white/50 p-8 dark:border-white/10 dark:bg-white/[0.03] md:p-12">
@@ -218,13 +203,13 @@ export default function Home() {
               <h3 className="text-lg font-black">Tienda física</h3>
 
               <a
-  href={mapLinks.tienda}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-3 block text-sm leading-6 text-black/50 underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:text-white/45 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
->
-  Alonso de Ovalle 1060, Local 139, Santiago Centro.
-</a>
+                href={mapLinks.tienda}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block text-sm leading-6 text-black/50 underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:text-white/45 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+              >
+                Alonso de Ovalle 1060, Local 139, Santiago Centro.
+              </a>
 
               <p className="mt-3 text-xs leading-5 text-black/40 dark:text-white/35">
                 Local en preparación. La atención presencial se anunciará cuando
@@ -240,16 +225,16 @@ export default function Home() {
               <h3 className="text-lg font-black">Retiros al mayor</h3>
 
               <p className="mt-3 text-sm leading-6 text-black/50 dark:text-white/45">
-  <a
-    href={mapLinks.mayoristas}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
-  >
-    Tarapacá 1028, Santiago Centro.
-  </a>{" "}
-  Disponible para compras mayoristas y retiros coordinados.
-</p>
+                <a
+                  href={mapLinks.mayoristas}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+                >
+                  Tarapacá 1028, Santiago Centro.
+                </a>{" "}
+                Disponible para compras mayoristas y retiros coordinados.
+              </p>
 
               <p className="mt-3 text-xs leading-5 text-black/40 dark:text-white/35">
                 Siempre con coordinación previa por WhatsApp.
@@ -401,30 +386,30 @@ export default function Home() {
 
             <div className="flex flex-col gap-3 text-sm leading-6 text-black/50 dark:text-white/45">
               <p>
-  Próximamente tienda física:
-  <br />
-  <a
-    href={mapLinks.tienda}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
-  >
-    Alonso de Ovalle 1060, Local 139.
-  </a>
-</p>
+                Próximamente tienda física:
+                <br />
+                <a
+                  href={mapLinks.tienda}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+                >
+                  Alonso de Ovalle 1060, Local 139.
+                </a>
+              </p>
 
-<p>
-  Retiros al mayor:
-  <br />
-  <a
-    href={mapLinks.mayoristas}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
-  >
-    Tarapacá 1028, Santiago Centro.
-  </a>
-</p>
+              <p>
+                Retiros al mayor:
+                <br />
+                <a
+                  href={mapLinks.mayoristas}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/20 underline-offset-4 transition hover:text-orange-500 hover:decoration-orange-500 dark:decoration-white/20 dark:hover:text-orange-400 dark:hover:decoration-orange-400"
+                >
+                  Tarapacá 1028, Santiago Centro.
+                </a>
+              </p>
             </div>
           </div>
 
